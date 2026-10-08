@@ -1,10 +1,10 @@
-Desenvolvido por MAteus Pereira da Silva Fernandes
+Desenvolvido por Mateus Pereira da Silva Fernandes
 
 Login Spring Java
 
 Sistema de login desenvolvido em Java com Spring Boot.
 
-Tecnologias utilizadas
+Tecnologias utilizadas:
 
 Java 17
 Spring Boot
@@ -16,7 +16,7 @@ Spring Session
 BCrypt
 Bean Validation
 
-IDEs
+IDEs:
 VScode
 Intelijj(Recomendo para trabalhar com java spring)
 
@@ -32,8 +32,6 @@ MONGODB_URI=mongodb+srv://USUARIO:SENHA@SEU_CLUSTER.mongodb.net/login_spring
 APP_ADMIN_EMAIL=admin@exemplo.com
 APP_ADMIN_PASSWORD=SUA_SENHA
 PORT=8080
-
-Não adicione credenciais reais ao repositório.
  
 O sistema estará disponível em:
 
@@ -43,6 +41,6 @@ MongoDB
 
 O projeto utiliza o MongoDB Atlas para armazenamento dos dados da aplicação e das sessões.
 
-A conexão é realizada através da variável de ambiente `MONGODB_URI`.
+A conexão é realizada através da variável de ambiente MONGODB_URI.
 
 Projeto desenvolvido para fins acadêmicos.

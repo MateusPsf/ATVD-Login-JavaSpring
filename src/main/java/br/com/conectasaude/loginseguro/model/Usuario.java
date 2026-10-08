@@ -12,18 +12,12 @@ public class Usuario {
 
     @Id
     private String id;
-
     private String nome;
-
     @Indexed(unique = true)
     private String email;
-
     private String senhaHash;
-
     private Set<Role> roles = new HashSet<>();
-
     private boolean ativo = true;
-
     private Instant criadoEm = Instant.now();
 
     public String getId() {
