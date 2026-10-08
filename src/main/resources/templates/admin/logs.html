@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments :: head('Console de logs')}"></head>
+<body>
+<header th:replace="~{fragments :: topo}"></header>
+<main class="pagina pagina-larga">
+    <section class="painel">
+        <div class="cabecalho-painel">
+            <div>
+                <p sec:authentication="name"></p>
+                <h1>Console de logs</h1>
+                <p>Auditoria de autenticação e eventos administrativos. Os identificadores são mascarados.</p>
+            </div>
+            <a class="botao" th:href="@{/admin}">Voltar</a>
+        </div>
+
+        <div class="resumo-logs">
+            <article><span>Total armazenado</span><strong th:text="${totalLogs}">0</strong></article>
+            <article><span>Informações</span><strong th:text="${totalInfo}">0</strong></article>
+            <article><span>Avisos</span><strong th:text="${totalWarn}">0</strong></article>
+            <article><span>Erros</span><strong th:text="${totalError}">0</strong></article>
+        </div>
+
+        <form class="filtros-logs" method="get" th:action="@{/admin/logs}">
+            <label for="nivel">Nível
+                <select id="nivel" name="nivel">
+                    <option value="TODOS" th:selected="${nivelSelecionado == 'TODOS'}">Todos</option>
+                    <option value="INFO" th:selected="${nivelSelecionado == 'INFO'}">INFO</option>
+                    <option value="WARN" th:selected="${nivelSelecionado == 'WARN'}">WARN</option>
+                    <option value="ERROR" th:selected="${nivelSelecionado == 'ERROR'}">ERROR</option>
+                </select>
+            </label>
+            <label class="busca-log" for="busca">Pesquisar evento, descrição ou identificador
+                <input id="busca" name="busca" type="search" maxlength="80" th:value="${busca}" placeholder="Ex.: LOGIN_FALHOU">
+            </label>
+            <button class="botao-primario" type="submit">Filtrar</button>
+            <a class="botao" th:href="@{/admin/logs}">Limpar</a>
+        </form>
+
+        <p class="aviso-logs">Exibindo até 200 registros mais recentes por consulta. Senhas, hashes, tokens, cookies e conteúdo de requisições não são armazenados neste histórico.</p>
+        <div class="tabela-responsiva">
+            <table class="tabela-logs">
+                <thead><tr><th>Data e hora</th><th>Nível</th><th>Evento</th><th>Descrição</th><th>Identificador</th></tr></thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(logs)}"><td colspan="5">Nenhum evento encontrado para os filtros selecionados.</td></tr>
+                <tr th:each="log : ${logs}">
+                    <td class="data-log" th:text="${#temporals.format(log.ocorridoEm, 'dd/MM/yyyy HH:mm:ss')}">08/10/2026 18:00:00</td>
+                    <td><span class="nivel-log" th:classappend="${' nivel-' + #strings.toLowerCase(log.nivel)}" th:text="${log.nivel}">INFO</span></td>
+                    <td th:text="${log.evento}">LOGIN_SUCESSO</td>
+                    <td th:text="${log.descricao}">Evento registrado</td>
+                    <td th:text="${log.ator}">m***@exemplo.com</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+<style>
+.resumo-logs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:24px 0}
+.resumo-logs article{display:flex;flex-direction:column;gap:8px;padding:18px;border:1px solid var(--cor-borda);border-radius:12px;background:var(--cor-fundo)}
+.resumo-logs span{font-size:.9rem;color:var(--cor-suave)}.resumo-logs strong{font-size:1.8rem}
+.filtros-logs{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:24px 0}
+.filtros-logs label{display:flex;flex-direction:column;gap:7px;font-size:.9rem;font-weight:600}
+.filtros-logs select,.filtros-logs input{min-height:42px;padding:9px 12px;border:1px solid var(--cor-borda);border-radius:8px;background:white;font:inherit}
+.busca-log{flex:1;min-width:220px}.aviso-logs{font-size:.9rem;color:var(--cor-suave);margin:16px 0}
+.tabela-logs{width:100%;border-collapse:collapse;font-size:.92rem}.tabela-logs th,.tabela-logs td{padding:13px 12px;border-bottom:1px solid var(--cor-borda);text-align:left;vertical-align:top}.tabela-logs th{background:var(--cor-fundo)}
+.nivel-log{display:inline-block;padding:4px 8px;border-radius:6px;font-size:.78rem;font-weight:700;background:#e5e7eb;color:#374151}.nivel-info{background:#dcfce7;color:#166534}.nivel-warn{background:#fef3c7;color:#92400e}.nivel-error{background:#fee2e2;color:#991b1b}.data-log{white-space:nowrap}
+@media(max-width:700px){.resumo-logs{grid-template-columns:repeat(2,minmax(0,1fr))}.tabela-logs{min-width:800px}}
+</style>
+</body>
+</html>
