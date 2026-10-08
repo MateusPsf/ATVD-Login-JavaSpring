@@ -2,6 +2,7 @@ package br.com.conectasaude.loginseguro.controller;
 
 import br.com.conectasaude.loginseguro.model.Role;
 import br.com.conectasaude.loginseguro.service.AdminUsuarioService;
+import br.com.conectasaude.loginseguro.service.LogAuditoriaService;
 import java.security.Principal;
 import java.util.Set;
 import org.springframework.stereotype.Controller;
@@ -18,9 +19,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AdminUsuarioController {
 
     private final AdminUsuarioService adminUsuarioService;
+    private final LogAuditoriaService logs;
 
-    public AdminUsuarioController(AdminUsuarioService adminUsuarioService) {
+    public AdminUsuarioController(AdminUsuarioService adminUsuarioService, LogAuditoriaService logs) {
         this.adminUsuarioService = adminUsuarioService;
+        this.logs = logs;
     }
 
     @GetMapping
@@ -38,6 +41,7 @@ public class AdminUsuarioController {
             RedirectAttributes redirectAttributes) {
         try {
             adminUsuarioService.atualizarPerfis(id, roles, principal.getName());
+            logs.registrar("INFO", "PERFIS_USUARIO_ATUALIZADOS", "Administrador atualizou os perfis de uma conta.", principal.getName());
             redirectAttributes.addFlashAttribute("sucesso", "Perfis atualizados com sucesso.");
         } catch (IllegalArgumentException erro) {
             redirectAttributes.addFlashAttribute("erro", erro.getMessage());
@@ -52,6 +56,7 @@ public class AdminUsuarioController {
             RedirectAttributes redirectAttributes) {
         try {
             adminUsuarioService.alternarStatus(id, principal.getName());
+            logs.registrar("WARN", "STATUS_USUARIO_ALTERADO", "Administrador alterou o status de uma conta.", principal.getName());
             redirectAttributes.addFlashAttribute("sucesso", "Status do usuario atualizado com sucesso.");
         } catch (IllegalArgumentException erro) {
             redirectAttributes.addFlashAttribute("erro", erro.getMessage());

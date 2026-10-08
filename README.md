@@ -4,6 +4,14 @@ Login Spring Java
 
 Sistema de login desenvolvido em Java com Spring Boot.
 
+Funcionalidade do sistema:
+
+Autenticação de usuarios.
+Senhas criptografadas com BCrypt
+Dados no MongoDB Atlas
+Controle de Logs 
+ACesso ao painel de logs somente pelo administrador do sistema
+
 Tecnologias utilizadas
 
 Java 17
@@ -43,6 +51,6 @@ MongoDB
 
 O projeto utiliza o MongoDB Atlas para armazenamento dos dados da aplicação e das sessões.
 
-A conexão é realizada através da variável de ambiente `MONGODB_URI`.
+A conexão é realizada através da variável de ambiente MONGODB_URI.
 
 Projeto desenvolvido para fins acadêmicos.

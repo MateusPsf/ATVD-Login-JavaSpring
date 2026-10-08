@@ -1,6 +1,7 @@
 package br.com.conectasaude.loginseguro.config;
 
 import br.com.conectasaude.loginseguro.service.MongoUserDetailsService;
+import br.com.conectasaude.loginseguro.service.LogAuditoriaService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -15,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, LogAuditoriaService logs) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/img/**", "/cadastro", "/login").permitAll()
@@ -27,12 +28,25 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .usernameParameter("email")
                         .passwordParameter("senha")
-                        .defaultSuccessUrl("/painel", true)
-                        .failureUrl("/login?erro")
+                        .successHandler((request, response, authentication) -> {
+                            logs.registrar("INFO", "LOGIN_SUCESSO", "Autenticação realizada com sucesso.", authentication.getName());
+                            response.sendRedirect(request.getContextPath() + "/painel");
+                        })
+                        .failureHandler((request, response, exception) -> {
+                            // Só registra o identificador mascarado; nunca senha, exceção ou corpo do formulário.
+                            String identificador = request.getParameter("email");
+                            logs.registrar("WARN", "LOGIN_FALHOU", "Tentativa de autenticação não concluída.", identificador);
+                            response.sendRedirect(request.getContextPath() + "/login?erro");
+                        })
                         .permitAll())
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?saiu")
+                        .logoutSuccessHandler((request, response, authentication) -> {
+                            if (authentication != null) {
+                                logs.registrar("INFO", "LOGOUT", "Sessão encerrada pelo usuário.", authentication.getName());
+                            }
+                            response.sendRedirect(request.getContextPath() + "/login?saiu");
+                        })
                         .invalidateHttpSession(true)
                         .deleteCookies("SESSION")
                         .permitAll())
