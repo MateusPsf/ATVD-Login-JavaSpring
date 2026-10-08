@@ -34,6 +34,12 @@ Java 17
 Maven
 MongoDB Atlas
 
+Configurar o MongoDB Atlas com segurança
+
+1. No MongoDB Atlas, crie um cluster e um usuário de banco com permissões mínimas necessárias.
+3. Copie a connection string.
+4. Troque os marcadores pela credencial do usuário do banco e pelo nome do cluster/banco.
+
 Configure as seguintes variáveis de ambiente:
 
 MONGODB_URI=mongodb+srv://USUARIO:SENHA@SEU_CLUSTER.mongodb.net/login_spring
