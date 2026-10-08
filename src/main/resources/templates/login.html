@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Login')}"></head>
+<body>
+<header th:replace="~{fragments :: topo}"></header>
+<main class="pagina">
+    <section class="cartao">
+        <h1>Entrar</h1>
+        <p>Acesse o ConectaSaude com seu e-mail e senha.</p>
+
+        <p class="sucesso" th:if="${sucesso}" th:text="${sucesso}"></p>
+        <p class="erro" th:if="${param.erro}">E-mail ou senha invalidos.</p>
+        <p class="sucesso" th:if="${param.saiu}">Voce saiu da sua conta.</p>
+
+        <form th:action="@{/login}" method="post">
+            <div class="campo">
+                <label for="email">E-mail</label>
+                <input id="email" name="email" type="email" autocomplete="email" maxlength="150" required autofocus>
+            </div>
+
+            <div class="campo">
+                <label for="senha">Senha</label>
+                <input id="senha" name="senha" type="password" autocomplete="current-password" required>
+            </div>
+
+            <button class="botao-primario" type="submit">Entrar</button>
+        </form>
+
+        <p>Nao possui conta? <a th:href="@{/cadastro}">Criar cadastro</a></p>
+    </section>
+</main>
+</body>
+</html>

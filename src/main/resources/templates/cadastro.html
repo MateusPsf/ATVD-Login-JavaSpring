@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Cadastro')}"></head>
+<body>
+<header th:replace="~{fragments :: topo}"></header>
+<main class="pagina">
+    <section class="cartao">
+        <h1>Criar conta</h1>
+        <p>Cadastre-se para acessar as areas protegidas do ConectaSaude.</p>
+
+        <form th:action="@{/cadastro}" th:object="${cadastroUsuarioForm}" method="post">
+            <div class="campo">
+                <label for="nome">Nome</label>
+                <input id="nome" type="text" th:field="*{nome}" autocomplete="name" maxlength="80" required>
+                <span class="erro" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+            </div>
+
+            <div class="campo">
+                <label for="email">E-mail</label>
+                <input id="email" type="email" th:field="*{email}" autocomplete="email" maxlength="150" required>
+                <span class="erro" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            </div>
+
+            <fieldset>
+                <legend>Perfil</legend>
+                <div class="opcoes">
+                    <label><input type="radio" th:field="*{perfil}" value="ALUNO"> Aluno</label>
+                    <label><input type="radio" th:field="*{perfil}" value="PROFESSOR"> Professor</label>
+                </div>
+                <span class="erro" th:if="${#fields.hasErrors('perfil')}" th:errors="*{perfil}"></span>
+            </fieldset>
+
+            <div class="campo">
+                <label for="senha">Senha</label>
+                <input id="senha" type="password" th:field="*{senha}" autocomplete="new-password" minlength="8" required>
+                <span class="erro" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></span>
+            </div>
+
+            <div class="campo">
+                <label for="confirmarSenha">Confirmar senha</label>
+                <input id="confirmarSenha" type="password" th:field="*{confirmarSenha}" autocomplete="new-password" minlength="8" required>
+                <span class="erro" th:if="${#fields.hasErrors('senhasIguais')}" th:errors="*{senhasIguais}"></span>
+            </div>
+
+            <label class="check">
+                <input type="checkbox" th:field="*{aceitouTermos}">
+                Aceito os termos de uso do sistema.
+            </label>
+            <p class="erro" th:if="${#fields.hasErrors('aceitouTermos')}" th:errors="*{aceitouTermos}"></p>
+
+            <button class="botao-primario" type="submit">Criar conta</button>
+        </form>
+
+        <p>Ja possui conta? <a th:href="@{/login}">Entrar</a></p>
+    </section>
+</main>
+</body>
+</html>

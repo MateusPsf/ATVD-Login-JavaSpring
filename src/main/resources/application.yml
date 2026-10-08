@@ -1,0 +1,24 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: login-seguro-conectasaude
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/conectasaude_login}
+      auto-index-creation: true
+  session:
+    store-type: mongodb
+    mongodb:
+      collection-name: sessoes_login
+  thymeleaf:
+    cache: false
+
+app:
+  name: ${APP_NAME:ConectaSaude}
+  theme:
+    name: ${APP_THEME:default}
+  admin:
+    email: ${APP_ADMIN_EMAIL:admin@conectasaude.com}
+    password: ${APP_ADMIN_PASSWORD:Admin@12345}

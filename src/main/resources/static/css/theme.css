@@ -1,0 +1,286 @@
+:root {
+  --cor-fundo: #f7faf9;
+  --cor-painel: #ffffff;
+  --cor-texto: #18312f;
+  --cor-suave: #5f7470;
+  --cor-borda: #d8e2df;
+  --cor-primaria: #1f8a70;
+  --cor-primaria-escura: #156653;
+  --cor-erro: #b42318;
+  --cor-sucesso: #157347;
+  --sombra: 0 20px 60px rgba(24, 49, 47, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+}
+
+a {
+  color: var(--cor-primaria-escura);
+}
+
+.topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px clamp(20px, 6vw, 80px);
+  border-bottom: 1px solid var(--cor-borda);
+  background: var(--cor-painel);
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+}
+
+.marca-simbolo {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 8px;
+  color: #ffffff;
+  background: var(--cor-primaria);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav a,
+.nav button,
+.botao,
+button {
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  font: inherit;
+  color: var(--cor-texto);
+  background: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.nav button,
+.botao-primario {
+  color: #ffffff;
+  border-color: var(--cor-primaria);
+  background: var(--cor-primaria);
+}
+
+.nav button:hover,
+.botao-primario:hover {
+  background: var(--cor-primaria-escura);
+}
+
+.pagina {
+  width: min(100%, 980px);
+  margin: 0 auto;
+  padding: 48px 20px;
+}
+
+.pagina-larga {
+  width: min(100%, 1180px);
+}
+
+.cartao {
+  width: min(100%, 460px);
+  margin: 0 auto;
+  padding: 32px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  background: var(--cor-painel);
+  box-shadow: var(--sombra);
+}
+
+.cartao h1,
+.painel h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  letter-spacing: 0;
+}
+
+.cartao p,
+.painel p {
+  color: var(--cor-suave);
+}
+
+.campo {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+label,
+legend {
+  font-weight: 700;
+}
+
+input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  font: inherit;
+}
+
+fieldset {
+  padding: 0;
+  margin: 18px 0;
+  border: 0;
+}
+
+.opcoes {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.opcoes label,
+.check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 400;
+}
+
+.opcoes input,
+.check input {
+  width: auto;
+  min-height: auto;
+}
+
+.erro {
+  color: var(--cor-erro);
+}
+
+.sucesso {
+  color: var(--cor-sucesso);
+}
+
+.painel {
+  display: grid;
+  gap: 18px;
+  padding: 36px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  background: var(--cor-painel);
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.cabecalho-painel {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.tabela-responsiva {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.tabela-usuarios {
+  width: 100%;
+  min-width: 820px;
+  border-collapse: collapse;
+}
+
+.tabela-usuarios th,
+.tabela-usuarios td {
+  padding: 14px;
+  border-bottom: 1px solid var(--cor-borda);
+  text-align: left;
+  vertical-align: top;
+}
+
+.tabela-usuarios th {
+  color: var(--cor-suave);
+  font-size: 0.9rem;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.status-ativo {
+  color: var(--cor-sucesso);
+  background: #e8f6ee;
+}
+
+.status-inativo {
+  color: var(--cor-erro);
+  background: #fcebea;
+}
+
+.form-perfis {
+  display: grid;
+  gap: 8px;
+}
+
+.form-perfis label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+}
+
+.form-perfis input {
+  width: auto;
+  min-height: auto;
+}
+
+.botao-pequeno {
+  min-height: 34px;
+  width: fit-content;
+  padding: 0 12px;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 680px) {
+  .topo {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .nav {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .cartao,
+  .painel {
+    padding: 24px;
+  }
+
+  .cabecalho-painel {
+    flex-direction: column;
+  }
+}
